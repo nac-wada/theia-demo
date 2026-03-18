@@ -1,0 +1,35 @@
+/* 1. 全ての要素のボックスモデルを border-box に統一 */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. html, body のデフォルトの余白を消し、高さを100%に固定 */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* ウィンドウ全体の不要なスクロールバーを防止 */
+}
+
+/* 3. Reactのルート要素（#root）も画面いっぱいに広げる */
+#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+  user-select: none; /* 基本的にテキスト選択を無効化（入力欄以外） */
+  -webkit-user-select: none;
+}
+
+/* 入力欄などはテキスト選択を許可する */
+input, textarea, [contenteditable="true"] {
+  user-select: text;
+  -webkit-user-select: text;
+}
