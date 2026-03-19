@@ -1,7 +1,7 @@
 // See the Electron documentation for details on how to use preload scripts:
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
 import { contextBridge, ipcRenderer } from 'electron';
-import { IElectronAPI } from './global';
+import { IElectronAPI } from './common/types';
 /**
  * IElectronAPI 型を明示的に指定することで、
  * src/common/types.ts との実装の乖離をコンパイル時に検知します。

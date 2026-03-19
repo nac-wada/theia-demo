@@ -1,8 +1,6 @@
-export interface IElectronAPI {
-  winMinimize: () => void;
-  winMaximize: () => void;
-  winClose: () => void;
-}
+import { IElectronAPI } from "./common/types"
+
+export {}
 
 /**
  * windowオブジェクトの型定義（TypeScript用）
