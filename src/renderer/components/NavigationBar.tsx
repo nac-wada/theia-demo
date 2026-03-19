@@ -3,13 +3,13 @@ import { Analytics, AnalyticsOutlined, AnalyticsSharp, Camera, FolderOpen, Folde
 import { usePanelStore } from '../store/usePanelStore';
 import { usePanelStatus } from '../hooks/usePanelStatus';
 
-const NavButton = (props: { title: string, icon: React.ReactNode }) => {
+const NavButton = (props: { id: string, icon: React.ReactNode }) => {
   const openPanel = usePanelStore((state) => state.openPanel);
-  const isVisible = usePanelStatus(props.title)
+  const isVisible = usePanelStatus(props.id)
 
   return (
       <IconButton 
-        title={props.title} 
+        title={props.id} 
         size="medium" 
         sx={{ 
           borderRadius: 0, 
@@ -21,7 +21,7 @@ const NavButton = (props: { title: string, icon: React.ReactNode }) => {
             borderColor: "primary.main" 
           }) 
         }} 
-        onClick={() => openPanel(props.title)}
+        onClick={() => openPanel(props.id)}
       >
         {props.icon}
       </IconButton>
@@ -43,14 +43,14 @@ export const NavigationBar = () => {
       borderColor: 'divider'
     }}>
 
-      <NavButton title='live-stream' icon={<VideocamOutlined sx={{fontSize: 20}}/>}/>
-      <NavButton title='tuning' icon={<TuneSharp sx={{fontSize: 20}}/>}/>
-      <NavButton title='3d-view' icon={<ViewInArOutlined sx={{fontSize: 20}}/>}/>
-      <NavButton title='record' icon={<VideoLibraryOutlined sx={{fontSize: 20}}/>}/>
+      <NavButton id='preview' icon={<VideocamOutlined sx={{fontSize: 20}}/>}/>
+      <NavButton id='adjustment' icon={<TuneSharp sx={{fontSize: 20}}/>}/>
+      <NavButton id='analysis' icon={<ViewInArOutlined sx={{fontSize: 20}}/>}/>
+      <NavButton id='file' icon={<VideoLibraryOutlined sx={{fontSize: 20}}/>}/>
       
       <Box sx={{ mt: 'auto', display: 'flex', flexDirection: 'column', gap: 1 }}>
-        <IconButton title="ヘルプ" size="small" sx={{ color: 'text.secondary' }}><HelpOutline sx={{fontSize: 20}}/></IconButton>
-        <IconButton title="設定" size="small" sx={{ color: 'text.secondary' }}><Settings sx={{fontSize: 20}}/></IconButton>
+        <IconButton title="help" size="small" sx={{ color: 'text.secondary' }}><HelpOutline sx={{fontSize: 20}}/></IconButton>
+        <IconButton title="setting" size="small" sx={{ color: 'text.secondary' }}><Settings sx={{fontSize: 20}}/></IconButton>
       </Box>
     </Box>
   )   
