@@ -1,5 +1,6 @@
 import { Box, Typography, AppBar, Toolbar, IconButton } from '@mui/material';
 import { Camera, Close, CropSquareSharp, HorizontalRuleSharp } from '@mui/icons-material';
+import { HeaderHeight } from '../App';
 
 export const Header = () => {
   const handleMinimize = () => {
@@ -27,7 +28,7 @@ export const Header = () => {
         userSelect: 'none',
       }}
     >
-      <Toolbar variant="dense" disableGutters sx={{ minHeight: 32 }}>
+      <Toolbar variant="dense" disableGutters sx={{ minHeight: HeaderHeight }}>
         {/* 左側：アイコンとタイトル */}
         <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1, ml: 0.5 }}>
           <Camera fontSize='small'/>

@@ -4,6 +4,7 @@ import { createSoloTransportFunc, PortSolo } from "../../api/client";
 import { GetDevicesResponse } from "../../gen/quartet/v1/quartet_pb";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
+import { quartetGetDevices } from "../../api/quartet";
 
 /**
  * カメラ情報
@@ -72,7 +73,8 @@ interface CameraListState {
   cameraList: CameraData[];
   isLoading: boolean;
   error: string | null;
-  setCameraListFromApi: (apiResponse: GetDevicesResponse | false) => void;
+  getDevices: () => void;
+  updateCameraList: (newCameraList: CameraData[]) => void;
 }
 
 /**
@@ -87,7 +89,8 @@ export const useCameraStore = create<CameraListState>()(
       cameraList: [],
       isLoading: true,
       error: null,
-      setCameraListFromApi: (apiResponse: GetDevicesResponse | false) => {
+      getDevices: async () => {
+        const apiResponse = await quartetGetDevices()
         if(!apiResponse) {
           set({ isLoading: false, error: "failed to fetch" })
           return;
@@ -123,6 +126,7 @@ export const useCameraStore = create<CameraListState>()(
 
         set({ cameraList: cameras, isLoading: false, error: null });
       },
+      updateCameraList: (newCameraList) => set((state) => ({ ...state, cameraList: newCameraList }))
     }),
     {
       name: 'cameraList-storage', // localStorageのキー名

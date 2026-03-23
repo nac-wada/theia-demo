@@ -1,57 +1,74 @@
-import { Refresh } from "@mui/icons-material";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useCameraStore } from "../../store/useCameraListStore"
-import { useEffect } from "react";
-import { quartetGetDevices } from "../../../api/quartet";
+import { FooterHeight, HeaderHeight, TabHeaderHeight } from "../../App";
+import { Live } from "./Live";
+import { closestCenter, DndContext, DragEndEvent, DragStartEvent, KeyboardSensor, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { arrayMove, horizontalListSortingStrategy, SortableContext, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+import { useState } from "react";
 
 export const LiveFeed = () => {
-  const { error, isLoading, cameraList, setCameraListFromApi } = useCameraStore();
+  const { error, isLoading, cameraList, updateCameraList } = useCameraStore();
+  const [activeId, setActiveId] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setCameraListFromApi(await quartetGetDevices())
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+  );
+
+  const handleDragStart = (event: DragStartEvent) => setActiveId(event.active.id);
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (over && active.id !== over.id) {
+      const oldIndex = cameraList.findIndex((p) => p.id === active.id);
+      const newIndex = cameraList.findIndex((p) => p.id === over.id);
+      updateCameraList(arrayMove(cameraList, oldIndex, newIndex));
     }
-
-    fetchData();
-  },[])
+    setActiveId(null);
+  };
 
   return (
     <Box 
       sx={{ 
-        height: "100vh",
+        height: `calc(100vh - ${(HeaderHeight + FooterHeight + TabHeaderHeight + 1)}px)`, 
+        display: "flex", 
+        flexDirection: "column",
         overflow: "auto",
-        '&::-webkit-scrollbar': { width: '6px' },
+        '&::-webkit-scrollbar': { width: '6px', height: '6px' },
         '&::-webkit-scrollbar-thumb': { backgroundColor: 'rgba(255, 255, 255, 0.1)', borderRadius: '10px' }
       }}
     >
     {
       isLoading ? <Typography color="textDisabled">connecting camera system...</Typography> :
-      error ? <Typography color="textDisabled">{error}<Button size="small" color="primary"><Refresh fontSize="small" sx={{ fontSize: 20 }}/></Button></Typography> :
-      <Box 
-        sx={{ 
-          height: "100%",
-          width: "100%", 
-          display: "grid", 
-          gridTemplateColumns: `repeat(auto-fit, minmax(600px, 1fr))`, 
-        }}
+      error ? 
+      <Typography color="textDisabled">
+        {error}
+      </Typography> :
+      <DndContext 
+        sensors={sensors} 
+        collisionDetection={closestCenter} 
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
       >
-      {
-        cameraList.map((camera, index) => (
+        <SortableContext items={cameraList.map(c => c.ipv4Addr)} strategy={horizontalListSortingStrategy}>
           <Box 
-            key={index} 
             sx={{ 
-              width: "100%", 
-              minWidth: "600px",
-              aspectRatio: 1936/1216, 
-              borderColor: "primary.main", 
-              border: 1
+              display: "grid", 
+              gridTemplateColumns: `repeat(auto-fit, minmax(500px, 1fr))`, 
+              width: "100%",
+              height: "100%",
+              pb: 2,
+              gap: 1
             }}
           >
-          {camera.ipv4Addr}
+          {
+            cameraList.map((camera, index) => (
+              <Live key={index} transport={camera.transport} videoId={camera.ipv4Addr} nickname={camera.nickname} />
+            ))
+          }
           </Box>
-        ))
-      }
-      </Box>
+        </SortableContext>
+      </DndContext>
     }
     </Box>
   )

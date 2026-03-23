@@ -2,6 +2,9 @@ import { Box, createTheme, ThemeProvider, CssBaseline } from '@mui/material';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { MainWorkspace } from './components/MainWorkspace';
+import { useCameraStore } from './store/useCameraListStore';
+import { useEffect } from 'react';
+import { quartetGetDevices } from '../api/quartet';
 
 // 1. ダークモード用のテーマ設定
 const darkTheme = createTheme({
@@ -21,7 +24,16 @@ const darkTheme = createTheme({
   },
 });
 
+export const HeaderHeight = 32
+export const FooterHeight = 28
+export const TabHeaderHeight = 32
+
 export default function App() {
+  const { getDevices } = useCameraStore();
+
+  useEffect(() => {
+    getDevices()
+  },[])
 
   return (
     <ThemeProvider theme={darkTheme}>

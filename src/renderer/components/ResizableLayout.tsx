@@ -10,6 +10,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { closestCenter, defaultDropAnimationSideEffects, DndContext, DragEndEvent, DraggableAttributes, DragOverlay, DragStartEvent, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
 import { LiveFeed } from '../features/live/LiveFeed';
+import { TabHeaderHeight } from '../App';
 // --- パネルレンダリングの振り分け用マップ ---
 const PANEL_COMPONENTS: Record<string, React.ReactNode> = {
   adjustment: <>adjustment</>,
@@ -24,6 +25,7 @@ const PanelHeader = (props: { title: string, isOverlay: boolean, attributes?: Dr
   return (
     <Box 
       sx={{ 
+        height: TabHeaderHeight,
         display: 'flex', 
         alignItems: 'center', 
         p: 0.5, 
@@ -137,8 +139,6 @@ export const ResizableLayout = () => {
     setActiveId(null);
   };
 
-  const groupKey = useMemo(() => visiblePanels.map(p => p.id).join('-'), [visiblePanels]);
-
   if (!isReady) return null;
   
   return (
@@ -153,7 +153,7 @@ export const ResizableLayout = () => {
             onDragEnd={handleDragEnd}
           >
             <SortableContext items={visiblePanels.map(p => p.id)} strategy={horizontalListSortingStrategy}>
-              <PanelGroup direction="horizontal" key={groupKey}>
+              <PanelGroup direction="horizontal">
                 {visiblePanels.map((panel, index) => (
                   <PanelFrame 
                     key={panel.id}

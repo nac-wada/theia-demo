@@ -1,13 +1,16 @@
-import { Info, Storage } from '@mui/icons-material';
-import { Box, Typography, Divider, Stack } from '@mui/material';
+import { Error, Info, Refresh } from '@mui/icons-material';
+import { Box, Typography, Divider, Stack, Button } from '@mui/material';
+import { useCameraStore } from '../store/useCameraListStore';
 
 
 export const Footer = () => {
+  const { error, getDevices } = useCameraStore()
+  
   return (
     <Box 
       component="footer" 
       sx={{ 
-        height: "28px", 
+        height: 28, 
         bgcolor: 'background.paper', 
         borderTop: '1px solid', 
         borderColor: 'divider', 
@@ -27,10 +30,16 @@ export const Footer = () => {
         
         <Divider orientation="vertical" flexItem sx={{ bgcolor: 'rgba(255,255,255,0.2)', my: 0.5 }} />
         
-        <Stack direction="row" spacing={0.5} alignItems="center">
-          <Storage sx={{ fontSize: 14 }} />
-          <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>Disk: 42.1 GB free</Typography>
-        </Stack>
+        {
+          error &&
+          <Stack direction="row" spacing={0.5} alignItems="center">
+            <Error color='error' sx={{ fontSize: 14 }} />
+            <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>
+              {error}
+              <Button variant='outlined' color='primary' onClick={() => getDevices()}><Refresh/></Button>
+            </Typography>
+          </Stack>
+        }
 
         <Box sx={{ flexGrow: 1 }} />
 
