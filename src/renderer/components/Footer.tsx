@@ -36,7 +36,7 @@ export const Footer = () => {
             <Error color='error' sx={{ fontSize: 14 }} />
             <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>
               {error}
-              <Button variant='outlined' color='primary' onClick={() => getDevices()}><Refresh/></Button>
+              <Button color='primary' sx={{ width: 20, height: 20 }} onClick={() => getDevices()}><Refresh sx={{ fontSize: 20 }}/></Button>
             </Typography>
           </Stack>
         }

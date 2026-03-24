@@ -20,8 +20,8 @@ export const LiveFeed = () => {
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (over && active.id !== over.id) {
-      const oldIndex = cameraList.findIndex((p) => p.id === active.id);
-      const newIndex = cameraList.findIndex((p) => p.id === over.id);
+      const oldIndex = cameraList.findIndex((p) => p.ipv4Addr === active.id);
+      const newIndex = cameraList.findIndex((p) => p.ipv4Addr === over.id);
       updateCameraList(arrayMove(cameraList, oldIndex, newIndex));
     }
     setActiveId(null);
@@ -63,7 +63,7 @@ export const LiveFeed = () => {
           >
           {
             cameraList.map((camera, index) => (
-              <Live key={index} transport={camera.transport} videoId={camera.ipv4Addr} nickname={camera.nickname} />
+              <Live key={camera.ipv4Addr} transport={camera.transport} videoId={camera.ipv4Addr} nickname={camera.nickname} />
             ))
           }
           </Box>

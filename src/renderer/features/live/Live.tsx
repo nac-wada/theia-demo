@@ -117,7 +117,9 @@ export const Live: FC<{ transport: Transport, videoId: string, nickname: string 
         border: 1,
         boxSizing: "border-box",
         position: "relative",
-        bgcolor: "black"
+        bgcolor: "black",
+        cursor: 'grab', // 掴めることを示す
+        '&:active': { cursor: 'grabbing' }
       }}
       {...attributes} 
       {...listeners} 
