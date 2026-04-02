@@ -11,9 +11,10 @@ import { closestCenter, defaultDropAnimationSideEffects, DndContext, DragEndEven
 import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
 import { LiveFeed } from '../features/live/LiveFeed';
 import { TabHeaderHeight } from '../App';
+import { Adjustment } from '../features/adjustment/Adjustment';
 // --- パネルレンダリングの振り分け用マップ ---
 const PANEL_COMPONENTS: Record<string, React.ReactNode> = {
-  adjustment: <>adjustment</>,
+  adjustment: <Adjustment/>,
   preview: <LiveFeed/>,
   analysis: <>analysis</>,
   file: <>file</>,
@@ -30,6 +31,7 @@ const PanelHeader = (props: { title: string, isOverlay: boolean, attributes?: Dr
         alignItems: 'center', 
         p: 0.5, 
         userSelect: 'none',
+        cursor: 'pointer',
         ...(isOverlay && {
           bgcolor: 'rgba(63, 81, 181, 0.2)',
           borderBottom: '1px solid #3f51b5'

@@ -27,6 +27,7 @@ const darkTheme = createTheme({
 export const HeaderHeight = 32
 export const FooterHeight = 28
 export const TabHeaderHeight = 32
+export const LiveMinWidth = 400
 
 export default function App() {
   const { getDevices } = useCameraStore();
