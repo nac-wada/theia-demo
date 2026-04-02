@@ -5,7 +5,7 @@ import { Transport } from "@connectrpc/connect";
 import { Box, Typography } from "@mui/material";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from '@dnd-kit/utilities';
-import { LiveMinWidth } from "../../App";
+import { LIVE_MINWIDTH } from "../../App";
 
 export const Live: FC<{ transport: Transport, videoId: string, nickname: string }> = ({ transport, videoId, nickname }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -113,7 +113,7 @@ export const Live: FC<{ transport: Transport, videoId: string, nickname: string 
       sx={{ 
         width: "100%", 
         height: "100%",
-        minWidth: `${LiveMinWidth}px`,
+        minWidth: `${LIVE_MINWIDTH}px`,
         borderColor: "white", 
         border: 1,
         boxSizing: "border-box",

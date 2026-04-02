@@ -10,7 +10,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { closestCenter, defaultDropAnimationSideEffects, DndContext, DragEndEvent, DraggableAttributes, DragOverlay, DragStartEvent, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
 import { LiveFeed } from '../features/live/LiveFeed';
-import { TabHeaderHeight } from '../App';
+import { TABHEADER_HEIGHT } from '../App';
 import { Adjustment } from '../features/adjustment/Adjustment';
 // --- パネルレンダリングの振り分け用マップ ---
 const PANEL_COMPONENTS: Record<string, React.ReactNode> = {
@@ -26,7 +26,7 @@ const PanelHeader = (props: { title: string, isOverlay: boolean, attributes?: Dr
   return (
     <Box 
       sx={{ 
-        height: TabHeaderHeight,
+        height: TABHEADER_HEIGHT,
         display: 'flex', 
         alignItems: 'center', 
         p: 0.5, 

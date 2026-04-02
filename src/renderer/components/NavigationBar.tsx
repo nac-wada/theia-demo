@@ -18,7 +18,7 @@ const NavButton = (props: { id: string, icon: React.ReactNode }) => {
           color: 'text.secondary', 
           '&:hover': { color: '#fff' }, 
           ...(isVisible && { 
-            borderLeft: 2, 
+            borderLeft: 3, 
             borderColor: "primary.main" 
           }) 
         }} 

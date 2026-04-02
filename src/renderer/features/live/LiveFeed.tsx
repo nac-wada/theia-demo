@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { useCameraStore } from "../../store/useCameraListStore"
-import { FooterHeight, HeaderHeight, LiveMinWidth, TabHeaderHeight } from "../../App";
+import { FOOTER_HEIGHT, HEADER_HEIGHT, LIVE_MINWIDTH, TABHEADER_HEIGHT } from "../../App";
 import { Live } from "./Live";
 import { closestCenter, DndContext, DragEndEvent, DragStartEvent, KeyboardSensor, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { arrayMove, horizontalListSortingStrategy, SortableContext, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
@@ -30,7 +30,7 @@ export const LiveFeed = () => {
   return (
     <Box 
       sx={{ 
-        height: `calc(100vh - ${(HeaderHeight + FooterHeight + TabHeaderHeight + 10)}px)`, 
+        height: `calc(100vh - ${(HEADER_HEIGHT + FOOTER_HEIGHT + TABHEADER_HEIGHT + 10)}px)`, 
         display: "flex", 
         flexDirection: "column",
         overflow: "auto",
@@ -54,7 +54,7 @@ export const LiveFeed = () => {
           <Box 
             sx={{ 
               display: "grid", 
-              gridTemplateColumns: `repeat(auto-fit, minmax(${LiveMinWidth}px, 1fr))`, 
+              gridTemplateColumns: `repeat(auto-fit, minmax(${LIVE_MINWIDTH}px, 1fr))`, 
               width: "100%",
               height: "100%",
               pb: 2,

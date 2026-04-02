@@ -11,7 +11,7 @@ export const Footer = () => {
       component="footer" 
       sx={{ 
         height: 28, 
-        bgcolor: 'background.paper', 
+        bgcolor: 'primary.main', 
         borderTop: '1px solid', 
         borderColor: 'divider', 
         color: 'white', 

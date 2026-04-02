@@ -16,7 +16,8 @@ const darkTheme = createTheme({
     },
     divider: '#333333',   // 境界線の色
     primary: {
-      main: '#3f51b5',    // アクセントカラー
+      main: '#094594',    // ナックカラー
+      light: '#3a6aab'
     },
   },
   typography: {
@@ -24,10 +25,11 @@ const darkTheme = createTheme({
   },
 });
 
-export const HeaderHeight = 32
-export const FooterHeight = 28
-export const TabHeaderHeight = 32
-export const LiveMinWidth = 400
+export const HEADER_HEIGHT = 32
+export const FOOTER_HEIGHT = 28
+export const TABHEADER_HEIGHT = 32
+export const LIVE_MINWIDTH = 400
+export const BUTTON_HEIGHT = 24; 
 
 export default function App() {
   const { getDevices } = useCameraStore();
