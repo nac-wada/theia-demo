@@ -12,11 +12,12 @@ import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
 import { LiveFeed } from '../features/live/LiveFeed';
 import { TABHEADER_HEIGHT } from '../App';
 import { Adjustment } from '../features/adjustment/Adjustment';
+import { Viewer } from '../features/3dviewer/3dViewer';
 // --- パネルレンダリングの振り分け用マップ ---
 const PANEL_COMPONENTS: Record<string, React.ReactNode> = {
   adjustment: <Adjustment/>,
   preview: <LiveFeed/>,
-  analysis: <>analysis</>,
+  analysis: <Viewer/>,
   file: <>file</>,
 };
 
