@@ -13,12 +13,13 @@ import { LiveFeed } from '../features/live/LiveFeed';
 import { TABHEADER_HEIGHT } from '../App';
 import { Adjustment } from '../features/adjustment/Adjustment';
 import { Viewer } from '../features/3dviewer/3dViewer';
+import { VideoList } from '../features/videos/VideoList';
 // --- パネルレンダリングの振り分け用マップ ---
 const PANEL_COMPONENTS: Record<string, React.ReactNode> = {
   adjustment: <Adjustment/>,
   preview: <LiveFeed/>,
   analysis: <Viewer/>,
-  file: <>file</>,
+  file: <VideoList/>,
 };
 
 const PanelHeader = (props: { title: string, isOverlay: boolean, attributes?: DraggableAttributes, listeners?: SyntheticListenerMap, onClose?: () => void }) => {
@@ -113,7 +114,7 @@ const PanelFrame = (props: {index: number, panel: PanelType, isLast: boolean, on
 
 export const ResizableLayout = () => {
   const { panels, setPanels, closePanel, updateSize } = usePanelStore();
-  const [activeId, setActiveId] = useState(null);
+  const [activeId, setActiveId] = useState<any | null>(null);
   
   const [isReady, setIsReady] = useState(false);
 
@@ -148,7 +149,17 @@ export const ResizableLayout = () => {
     <>
     {
       visiblePanels.length > 0 && (
-        <Box sx={{ flexGrow: 1, p: 0 }}>
+        <Box 
+          sx={{ 
+            flexGrow: 1, 
+            p: 0,
+            width: '100%',      // 親の幅を固定
+            overflowX: 'auto',  // 横スクロールを許可
+            display: 'flex',    // 子要素を横並びに維持
+            '&::-webkit-scrollbar': { height: '8px' }, // スクロールバーを見えやすくする場合
+            '&::-webkit-scrollbar-thumb': { backgroundColor: '#888', borderRadius: '4px' },
+          }}
+        >
           <DndContext 
             sensors={sensors} 
             collisionDetection={closestCenter} 

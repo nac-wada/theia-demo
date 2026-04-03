@@ -1,5 +1,5 @@
-import { Error, Info, Refresh } from '@mui/icons-material';
-import { Box, Typography, Divider, Stack, Button } from '@mui/material';
+import { Error, Info, Notifications, NotificationsNoneOutlined, NotificationsOutlined, Refresh } from '@mui/icons-material';
+import { Box, Typography, Divider, Stack, Button, IconButton, Badge } from '@mui/material';
 import { useCameraStore } from '../store/useCameraListStore';
 
 
@@ -16,19 +16,19 @@ export const Footer = () => {
         borderColor: 'divider', 
         color: 'white', 
         display: 'flex', 
-        alignItems: 'center', 
-        px: 1.5,
+        alignItems: 'center',
+        px: 1, 
         fontSize: '0.7rem',
         zIndex: (theme) => theme.zIndex.drawer + 2
       }}
     >
       <Stack direction="row" spacing={2} sx={{ width: '100%' }} alignItems="center">
-        <Stack direction="row" spacing={0.5} alignItems="center">
+        {/* <Stack direction="row" spacing={0.5} alignItems="center">
           <Info sx={{ fontSize: 14 }} />
           <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>システム稼働中</Typography>
-        </Stack>
+        </Stack> */}
         
-        <Divider orientation="vertical" flexItem sx={{ bgcolor: 'rgba(255,255,255,0.2)', my: 0.5 }} />
+        {/* <Divider orientation="vertical" flexItem sx={{ bgcolor: 'rgba(255,255,255,0.2)', my: 0.5 }} /> */}
         
         {
           error &&
@@ -36,16 +36,18 @@ export const Footer = () => {
             <Error color='error' sx={{ fontSize: 14 }} />
             <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>
               {error}
-              <Button color='primary' sx={{ width: 20, height: 20 }} onClick={() => getDevices()}><Refresh sx={{ fontSize: 20 }}/></Button>
+              <Button color='inherit' sx={{ width: 20, height: 20 }} onClick={() => getDevices()}><Refresh sx={{ fontSize: 20 }}/></Button>
             </Typography>
           </Stack>
         }
 
         <Box sx={{ flexGrow: 1 }} />
 
-        <Typography variant="caption" sx={{ fontSize: '0.7rem', opacity: 0.8 }}>
-          CPU: 12% | RAM: 1.4GB | UTF-8
-        </Typography>
+        <IconButton size={"small"} sx={{ borderRadius: 0 }}>
+          <Badge color={"info"} variant="dot">
+            <NotificationsNoneOutlined sx={{ fontSize: 18 }}/>
+          </Badge>
+        </IconButton>
       </Stack>
     </Box>
   )

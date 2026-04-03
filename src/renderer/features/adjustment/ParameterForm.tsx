@@ -137,8 +137,8 @@ export const ParameterForm = (props: {
               sx={{
                 width: "100%", height: BUTTON_HEIGHT, fontSize: "0.7rem",
                 minWidth: 0, textTransform: "none", px: 0,
-                color: "text.secondary", borderColor: "text.secondary",
-                "&:hover": { borderColor: "text.secondary", opacity: 0.8 },
+                color: "text.secondary", borderColor: "divider",
+                "&:hover": { opacity: 0.8 },
               }}
             >
               Auto
@@ -156,8 +156,8 @@ export const ParameterForm = (props: {
               sx={{
                 width: "100%", height: BUTTON_HEIGHT, fontSize: "0.7rem",
                 minWidth: 0, textTransform: "none", px: 0,
-                color: "text.secondary", borderColor: "text.secondary",
-                "&:hover": { borderColor: "text.secondary", backgroundColor: "rgba(0, 0, 0, 0.04)" },
+                color: "text.secondary", borderColor: "divider",
+                "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.04)" },
               }}
             >
               Def

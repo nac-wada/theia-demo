@@ -8,14 +8,14 @@ import { useState } from "react";
 
 export const LiveFeed = () => {
   const { error, isLoading, cameraList, updateCameraList } = useCameraStore();
-  const [activeId, setActiveId] = useState(null);
+  // const [activeId, setActiveId] = useState(null);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
 
-  const handleDragStart = (event: DragStartEvent) => setActiveId(event.active.id);
+  // const handleDragStart = (event: DragStartEvent) => setActiveId(event.active.id);
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -24,7 +24,7 @@ export const LiveFeed = () => {
       const newIndex = cameraList.findIndex((p) => p.ipv4Addr === over.id);
       updateCameraList(arrayMove(cameraList, oldIndex, newIndex));
     }
-    setActiveId(null);
+    // setActiveId(null);
   };
 
   return (
@@ -47,7 +47,7 @@ export const LiveFeed = () => {
       <DndContext 
         sensors={sensors} 
         collisionDetection={closestCenter} 
-        onDragStart={handleDragStart}
+        // onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
       >
         <SortableContext items={cameraList.map(c => c.ipv4Addr)} strategy={horizontalListSortingStrategy}>

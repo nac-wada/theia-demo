@@ -4,7 +4,6 @@ import { Footer } from './components/Footer';
 import { MainWorkspace } from './components/MainWorkspace';
 import { useCameraStore } from './store/useCameraListStore';
 import { useEffect } from 'react';
-import { quartetGetDevices } from '../api/quartet';
 
 // 1. ダークモード用のテーマ設定
 const darkTheme = createTheme({
@@ -28,7 +27,8 @@ const darkTheme = createTheme({
 export const HEADER_HEIGHT = 32
 export const FOOTER_HEIGHT = 28
 export const TABHEADER_HEIGHT = 32
-export const LIVE_MINWIDTH = 400
+export const LIVE_MINWIDTH = 350
+export const VIDEO_MINWIDTH = 350
 export const BUTTON_HEIGHT = 24; 
 
 export default function App() {
