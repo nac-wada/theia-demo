@@ -64,7 +64,7 @@ export const VideoList = () => {
             display: "grid",
             justifyContent: "center", 
             alignContent: "start", // 上詰めで配置
-            gridTemplateColumns: `repeat(auto-fill, minmax(min(100%, 380px), 1fr))`,
+            gridTemplateColumns: `repeat(auto-fill, minmax(min(100%, ${VIDEO_MINWIDTH}px), 1fr))`,
             width: "100%",
             gap: 1,
             flexGrow: 1, 
@@ -75,7 +75,7 @@ export const VideoList = () => {
           }}
         >
           {videos.map(({name}, i) => (
-            <Box key={i} sx={{ width: "100%", height: "100%", border: 1, borderColor: "divider", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Box key={i} sx={{ minWidth: VIDEO_MINWIDTH, width: "100%", height: "100%", border: 1, borderColor: "divider", display: "flex", alignItems: "center", justifyContent: "center" }}>
               {name}
             </Box>
           ))}
