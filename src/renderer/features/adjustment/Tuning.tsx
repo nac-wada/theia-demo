@@ -16,7 +16,7 @@ export const Tuning = () => {
           '&::-webkit-scrollbar-thumb': { backgroundColor: 'rgba(255, 255, 255, 0.1)', borderRadius: '10px' }
         }}
       >
-        <Typography variant="caption" color="textSecondary"><Checkbox size="small" sx={{ p: 0, scale: 0.8 }}/>ALL_CAMERA_TUNING</Typography>
+        <Typography variant="caption" color="textSecondary"><Checkbox color={"info"} size="small" sx={{ p: 0, scale: 0.8 }}/>ALL_CAMERA_TUNING</Typography>
         {
           cameraList.map(({nickname}) => {
             return (
@@ -30,7 +30,7 @@ export const Tuning = () => {
                 }}
               >
                 <Typography variant="caption" color="textPrimary" sx={{ fontSize: 16 }}>
-                  <Checkbox size="small" sx={{ p: 0, scale: 0.8 }}/>
+                  <Checkbox color={"info"} size="small" sx={{ p: 0, scale: 0.8 }}/>
                   {nickname}
                 </Typography>
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -38,8 +38,8 @@ export const Tuning = () => {
                   <ParameterForm input title={"GAIN"} autoMode={{enable: true }}/>
                   <ParameterForm input title={"GAMMA"}/>
                   <ParameterForm title={"WHITEBALANCE"} autoMode={{enable: false }} defMode={false}/>
-                  <ParameterForm input title={"WHITEBALANCE_BLUE"}/>
-                  <ParameterForm input title={"WHITEBALANCE_RED"}/>
+                  <ParameterForm input title={"WHITEBALANCE BLUE"}/>
+                  <ParameterForm input title={"WHITEBALANCE RED"}/>
                 </Box>
               </Box>
             )

@@ -17,7 +17,7 @@ export const Record = () => {
         }}
       >
         <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 1, }}>
-          <Typography variant="caption" color="textSecondary" sx={{ width: 130 }}>SCENE_NAME</Typography>
+          <Typography variant="caption" color="textSecondary" sx={{ width: 130 }}>SCENE NAME</Typography>
           <TextField
             size="small"
             variant="outlined"
@@ -36,7 +36,7 @@ export const Record = () => {
           />
         </Box>
         <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 1 }}>
-          <Typography variant="caption" color="textSecondary" sx={{ width: 130 }}>SUBJECT_ID</Typography>
+          <Typography variant="caption" color="textSecondary" sx={{ width: 130 }}>SUBJECT ID</Typography>
           <TextField
             size="small"
             variant="outlined"
@@ -55,7 +55,7 @@ export const Record = () => {
           />
         </Box>
         <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 1 }}>
-          <Typography variant="caption" color="textSecondary">RECORDING_TIME</Typography>
+          <Typography variant="caption" color="textSecondary">RECORDING TIME</Typography>
           <TextField
             select // これでドロップダウンになります
             size="small"
@@ -70,7 +70,7 @@ export const Record = () => {
               }
             }}
             sx={{ 
-              width: 120, // 幅を固定するとレイアウトが安定します
+              width: 100, // 幅を固定するとレイアウトが安定します
               "& .MuiOutlinedInput-root": { 
                 height: BUTTON_HEIGHT,
                 fontSize: "0.75rem"

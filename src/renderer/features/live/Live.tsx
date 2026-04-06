@@ -136,7 +136,7 @@ export const Live: FC<{ transport: Transport, videoId: string, nickname: string 
           objectFit: "contain"
         }}
       />
-      <Typography variant="h5" sx={{color: "#00BFFF", fontWeight: "bold", position: "absolute", bottom: 0, left: 0, m: "10px" }}>{nickname.replace("http://", '')}</Typography>
+      <Typography variant="h5" sx={{color: "info.main", fontWeight: "bold", position: "absolute", bottom: 0, left: 0, m: "10px" }}>{nickname.replace("http://", '')}</Typography>
     </Box>
   );
 };

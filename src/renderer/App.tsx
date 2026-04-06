@@ -15,7 +15,7 @@ const darkTheme = createTheme({
     },
     divider: '#333333',   // 境界線の色
     primary: {
-      main: '#094594',    // ナックカラー
+      main: '#043D78',    // ナックカラー
       light: '#3a6aab'
     },
   },

@@ -3,7 +3,7 @@ import { Box, Paper, Typography, Divider, IconButton } from '@mui/material';
 import { ResizeHandle } from './ResizeHandle';
 import { usePanelStore } from '../store/usePanelStore';
 import React, { useEffect, useMemo, useState } from 'react';
-import { Close } from '@mui/icons-material';
+import { Close, ViewStreamOutlined, ViewStreamSharp, ViewStreamTwoTone } from '@mui/icons-material';
 import { Panel as PanelType } from '../store/usePanelStore'
 import { arrayMove, horizontalListSortingStrategy, SortableContext, sortableKeyboardCoordinates, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -22,8 +22,38 @@ const PANEL_COMPONENTS: Record<string, React.ReactNode> = {
   file: <VideoList/>,
 };
 
-const PanelHeader = (props: { title: string, isOverlay: boolean, attributes?: DraggableAttributes, listeners?: SyntheticListenerMap, onClose?: () => void }) => {
-  const { title, attributes, listeners, isOverlay, onClose } = props
+// --- パネルヘッダーに表示するアクションボタンの定義
+const PANEL_ACTIONS: Record<string, React.FC<{id: string}>> = {
+  file: ({ id }) => {
+    const isHorizontal = usePanelStore(state => state.panels.find(p => p.id === id)?.config?.isHorizontal);
+    const updateConfig = usePanelStore(state => state.updatePanelConfig);
+
+    return (
+      <>
+        <IconButton 
+          title={"horizontal"}
+          size="small" 
+          sx={{ width: 32, borderRadius: 0 }} 
+          onClick={isHorizontal ? () => {} : () => updateConfig(id, { isHorizontal: true })}
+        >
+          <ViewStreamOutlined sx={{ fontSize: 16, transform: "rotate(90deg)" }}/>
+        </IconButton>
+        <IconButton 
+          title={"vertical"}
+          size="small" 
+          sx={{ width: 32, borderRadius: 0 }} 
+          onClick={!isHorizontal ? () => {} : () => updateConfig(id, { isHorizontal: false })}
+        >
+          <ViewStreamOutlined sx={{ fontSize: 16 }}/>
+        </IconButton>
+      </>
+    )
+  }
+}
+
+const PanelHeader = (props: { id: string, isOverlay: boolean, attributes?: DraggableAttributes, listeners?: SyntheticListenerMap, onClose?: () => void }) => {
+  const { id, attributes, listeners, isOverlay, onClose } = props
+  const ActionComponent = PANEL_ACTIONS[id];
 
   return (
     <Box 
@@ -43,16 +73,21 @@ const PanelHeader = (props: { title: string, isOverlay: boolean, attributes?: Dr
       {...listeners} 
     >
       <Typography variant="caption" sx={{ flexGrow: 1, fontWeight: 'bold', color: isOverlay ? '#fff' : 'text.secondary' }}>
-        {title}
+        {id}
       </Typography>
       {!isOverlay && (
-        <IconButton 
-          size="small" 
-          sx={{ width: 32, borderRadius: 0 }} 
-          onClick={onClose}
-        >
-          <Close sx={{ fontSize: 16 }}/>
-        </IconButton>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          {/* 固有のアクションボタンを表示 */}
+          {ActionComponent && <ActionComponent id={id} />}
+          
+          <IconButton 
+            size="small" 
+            sx={{ width: 32, borderRadius: 0 }} 
+            onClick={onClose}
+          >
+            <Close sx={{ fontSize: 16 }}/>
+          </IconButton>
+        </Box>
       )}
     </Box>
   )
@@ -89,7 +124,7 @@ const PanelFrame = (props: {index: number, panel: PanelType, isLast: boolean, on
         <div ref={setNodeRef} style={style}>
           <Paper square sx={{ height: '100%', display: 'flex', flexDirection: 'column', border: '1px solid #333', overflow: 'hidden' }}>
             <PanelHeader 
-              title={panel.title}
+              id={panel.id}
               attributes={attributes}
               listeners={listeners}
               onClose={onClose}    
@@ -187,7 +222,7 @@ export const ResizableLayout = () => {
                   elevation={8} 
                   sx={{ border: '1px solid', borderColor: 'primary.main', bgcolor: '#1a1a1a', width: 200, borderRadius: 1, overflow: 'hidden' }}
                 >
-                  <PanelHeader title={activePanel.title} isOverlay={true}/>
+                  <PanelHeader id={activePanel.id} isOverlay={true}/>
                 </Paper>
               ) : null}
             </DragOverlay>

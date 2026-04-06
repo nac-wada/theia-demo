@@ -1,5 +1,5 @@
-import { Error, Info, Notifications, NotificationsNoneOutlined, NotificationsOutlined, Refresh } from '@mui/icons-material';
-import { Box, Typography, Divider, Stack, Button, IconButton, Badge } from '@mui/material';
+import { Error, NotificationsNoneOutlined, Refresh } from '@mui/icons-material';
+import { Box, Typography, Stack, Button, IconButton, Badge } from '@mui/material';
 import { useCameraStore } from '../store/useCameraListStore';
 
 

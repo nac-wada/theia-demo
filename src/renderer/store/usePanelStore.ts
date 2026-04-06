@@ -3,9 +3,9 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 
 export interface Panel {
   id: string;
-  title: string;
   visible: boolean;
   size: number;
+  config?: Record<string, any>;
 }
 
 interface PanelState {
@@ -15,6 +15,7 @@ interface PanelState {
   closePanel: (id: string) => void;
   updateSize: (id: string, newSize: number) => void;
   resetLayout: () => void;
+  updatePanelConfig: (id: string, config: Record<string, any>) => void;
 }
 
 /**
@@ -27,10 +28,10 @@ export const usePanelStore = create<PanelState>()(
   persist(
     (set, get) => ({
       panels: [
-        { id: 'preview', title: 'preview', visible: true, size: 60 },
-        { id: 'adjustment', title: 'adjustment', visible: true, size: 20 },
-        { id: 'analysis', title: 'analysis', visible: true, size: 20 },
-        { id: 'file', title: 'file', visible: false, size: 20 },
+        { id: 'preview', visible: true, size: 60 },
+        { id: 'adjustment', visible: true, size: 20 },
+        { id: 'analysis', visible: true, size: 20 },
+        { id: 'file', visible: false, size: 20 },
       ],
       setPanels: (newPanels) => set({ panels: newPanels }),
       openPanel: (id) => set((state) => {
@@ -56,6 +57,11 @@ export const usePanelStore = create<PanelState>()(
       resetLayout: () => set((state) => ({
           panels: state.panels.map((p) => ({ ...p, visible: true }))
       })),
+      updatePanelConfig: (id: string, config: Record<string, any>) => set((state) => ({
+          panels: state.panels.map(p => 
+            p.id === id ? { ...p, config: { ...p.config, ...config } } : p
+          )
+      }))
     }),
     {
       name: 'panels-storage', // localStorageのキー名

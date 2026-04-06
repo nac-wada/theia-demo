@@ -96,6 +96,11 @@ export const ParameterForm = (props: {
               size="small"
               sx={{
                 mr: 1,
+                color: "info.main",
+                '& .MuiSlider-rail': {
+                  opacity: 0.5,
+                  backgroundColor: '#bfbfbf',
+                },
                 '& .MuiSlider-thumb': { m: 0, width: 4, height: 12, color: "white", borderRadius: 0 },
               }}
             />
@@ -133,12 +138,13 @@ export const ParameterForm = (props: {
           {props.autoMode && (
             <Button
               size="small"
+              color={"info"}
               variant={props.autoMode.enable ? "contained" : "outlined"}
               sx={{
                 width: "100%", height: BUTTON_HEIGHT, fontSize: "0.7rem",
                 minWidth: 0, textTransform: "none", px: 0,
-                color: "text.secondary", borderColor: "divider",
-                "&:hover": { opacity: 0.8 },
+                color: props.autoMode.enable ? "white":"text.secondary", borderColor: "divider",
+                "&:hover": { opacity: 0.9 },
               }}
             >
               Auto
