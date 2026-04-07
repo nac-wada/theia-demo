@@ -23,7 +23,7 @@ export const Adjustment = () => {
       >
         <Record/>
 
-        <Tuning/>
+        {/* <Tuning/> */}
 
         {/* <Calibration/> */}
         

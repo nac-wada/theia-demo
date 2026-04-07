@@ -1,0 +1,190 @@
+syntax = "proto3";
+
+option go_package = "github.com/mkrless/nac-t3d-core/gen/go/nact3dcore/v1;nact3dcorev1";
+
+package nact3dcore.v1;
+
+import "google/protobuf/timestamp.proto";
+
+service T3DService {
+  // サービス応答確認のためのHelloコールを実行する
+  rpc SayHello (SayHelloRequest) returns (SayHelloResponse) {}
+  // ビルド情報を取得する
+  rpc GetBuildInfo (GetBuildInfoRequest) returns (GetBuildInfoResponse) {}
+  // Theia3D バッチ処理の現在状態を取得する
+  rpc GetTMBatchStatus (GetTMBatchStatusRequest) returns (GetTMBatchStatusResponse) {}
+  // Theia3D バッチ処理の情報を取得する
+  rpc GetTMBatchInfo (GetTMBatchInfoRequest) returns (GetTMBatchInfoResponse) {}
+  // Theia3D バッチ処理の情報を設定する
+  rpc SetTMBatchInfo (SetTMBatchInfoRequest) returns (SetTMBatchInfoResponse) {}
+  // Theia3D バッチ処理を実行する
+  rpc RunTMBatch (RunTMBatchRequest) returns (RunTMBatchResponse) {}
+  // Theia3D バッチ処理を中断する
+  rpc CancelTMBatch (CancelTMBatchRequest) returns (CancelTMBatchResponse) {}
+}
+
+message SayHelloRequest {
+  string name = 1;
+}
+
+message SayHelloResponse {
+  string message = 1;
+}
+
+message BuildInfo {
+  string hash_id = 1;
+  string tag = 2;
+  google.protobuf.Timestamp build_time = 3;
+}
+
+message GetBuildInfoRequest {
+  //
+}
+
+message GetBuildInfoResponse {
+  bool success = 1;
+  BuildInfo build_info = 2;
+}
+
+/* =========================================================
+ * TMBatchStatus
+ * ========================================================= */
+
+enum TMCommandStatus {
+  TM_COMMAND_STATUS_UNSPECIFIED = 0;
+  TM_COMMAND_STATUS_SUCCESS     = 1;
+  TM_COMMAND_STATUS_FAILED      = 2;
+  TM_COMMAND_STATUS_WARNING     = 3;
+  TM_COMMAND_STATUS_UNKNOWN     = 4;
+}
+
+message TMCommandResult {
+  string name = 1;               // e.g. "Load video"
+  TMCommandStatus status = 2;    // Success / Warning / Unknown
+}
+
+message TMTrialStatus {
+  string trial_path = 1;         // Current Trial
+  string task       = 2;
+  string progress   = 3;
+  string status     = 4;
+
+  // この Trial に属する Command 群（順序保持）
+  repeated TMCommandResult commands = 5;
+}
+
+message TMBatchStatus {
+  int32 total_trials = 1;
+
+  // Trial ごとの処理状況（最大 Total Trials 個）
+  repeated TMTrialStatus trials = 2;
+}
+
+message GetTMBatchStatusRequest {}
+
+message GetTMBatchStatusResponse {
+  bool success = 1;
+  TMBatchStatus batch_status = 2;
+}
+
+// =============================================================================
+// TMBatch Info (batch_info_commands.txt)
+// =============================================================================
+
+// バッチ全体の状態
+enum TMBatchState {
+  TM_BATCH_STATE_UNSPECIFIED = 0;
+  TM_BATCH_STATE_IDLE        = 1;
+  TM_BATCH_STATE_RUN         = 2;
+}
+
+// batch_info_commands.txt の現在状態
+message TMBatchInfo {
+  TMBatchState state = 1;
+
+  string status_file = 2;
+  string type        = 3;
+  string dir         = 4;
+
+  // カンマ区切りで指定されるフォルダ群
+  repeated string folders_to_run = 5;
+
+  bool workspace           = 6;
+  bool run_analysis         = 7;
+  bool save_video           = 8;
+  bool save_json            = 9;
+  bool save_pose            = 10;
+  bool save_multi_person_c3d = 11;
+  bool save_fbx             = 12;
+
+  string fbx_coord_sys = 13;
+
+  bool save_work   = 14;
+  bool local_pref  = 15;
+  bool use_root    = 16;
+
+  int32 hierarchical_level = 17;
+}
+
+// 現在のバッチ情報を取得
+message GetTMBatchInfoRequest {
+}
+
+// レスポンス
+message GetTMBatchInfoResponse {
+  bool success = 1;
+  TMBatchInfo batch_info = 2;
+}
+
+// =============================================================================
+// TMBatch Info control
+// =============================================================================
+
+message SetTMBatchInfoRequest {
+  string dir = 1;
+
+  // 対象試行フォルダ（カンマ区切りではなく配列）
+  repeated string folders_to_run = 2;
+
+  bool workspace             = 3;
+  bool run_analysis           = 4;
+  bool save_video             = 5;
+  bool save_json              = 6;
+  bool save_pose              = 7;
+  bool save_multi_person_c3d  = 8;
+  bool save_fbx               = 9;
+
+  string fbx_coord_sys        = 10;
+
+  bool save_work              = 11;
+  bool local_pref             = 12;
+  bool use_root               = 13;
+
+  int32 hierarchical_level    = 14;
+}
+
+message SetTMBatchInfoResponse {
+  bool success = 1;
+}
+
+// =============================================================================
+// RunTMBatch
+// =============================================================================
+
+message RunTMBatchRequest {
+}
+
+message RunTMBatchResponse {
+  bool success = 1;
+}
+
+// =============================================================================
+// CancelTMBatch
+// =============================================================================
+
+message CancelTMBatchRequest {
+}
+
+message CancelTMBatchResponse {
+  bool success = 1;
+}

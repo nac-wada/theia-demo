@@ -4,7 +4,7 @@ import { ParameterForm } from "./ParameterForm"
 import { CustomAccordion } from "./CustomAccordion"
 
 export const Tuning = () => {
-  const { cameraList } = useCameraStore()
+  const cameraList = useCameraStore((state) => state.cameraList);
 
   return (
     <CustomAccordion title="tuning" >
@@ -18,7 +18,7 @@ export const Tuning = () => {
       >
         <Typography variant="caption" color="textSecondary"><Checkbox color={"info"} size="small" sx={{ p: 0, scale: 0.8 }}/>ALL_CAMERA_TUNING</Typography>
         {
-          cameraList.map(({nickname}) => {
+          cameraList.map(({nickname, ipv4Addr}) => {
             return (
               <Box 
                 key={`${nickname}_tuning`}
@@ -34,12 +34,12 @@ export const Tuning = () => {
                   {nickname}
                 </Typography>
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <ParameterForm input title={"EXPOSURE"} autoMode={{enable: false }}/>
-                  <ParameterForm input title={"GAIN"} autoMode={{enable: true }}/>
-                  <ParameterForm input title={"GAMMA"}/>
-                  <ParameterForm title={"WHITEBALANCE"} autoMode={{enable: false }} defMode={false}/>
-                  <ParameterForm input title={"WHITEBALANCE BLUE"}/>
-                  <ParameterForm input title={"WHITEBALANCE RED"}/>
+                  <ParameterForm ipv4Addr={ipv4Addr} input title={"EXPOSURE"} autoMode={{enable: false }}/>
+                  <ParameterForm ipv4Addr={ipv4Addr} input title={"GAIN"} autoMode={{enable: true }}/>
+                  <ParameterForm ipv4Addr={ipv4Addr} input title={"GAMMA"}/>
+                  <ParameterForm ipv4Addr={ipv4Addr} title={"WHITEBALANCE"} autoMode={{enable: false }} defMode={false}/>
+                  <ParameterForm ipv4Addr={ipv4Addr} input title={"WHITEBALANCE BLUE"}/>
+                  <ParameterForm ipv4Addr={ipv4Addr} input title={"WHITEBALANCE RED"}/>
                 </Box>
               </Box>
             )

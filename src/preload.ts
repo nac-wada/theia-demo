@@ -16,6 +16,7 @@ const api: IElectronAPI = {
   winClose: () => {
     ipcRenderer.send('window-close');
   },
+  getStartupOutput: () => ipcRenderer.invoke('get-startup-output'),
 };
 
 // 'electronAPI' という名前でメインワールド（レンダラープロセス）に公開

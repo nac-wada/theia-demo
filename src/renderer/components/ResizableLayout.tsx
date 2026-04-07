@@ -148,7 +148,10 @@ const PanelFrame = (props: {index: number, panel: PanelType, isLast: boolean, on
 }
 
 export const ResizableLayout = () => {
-  const { panels, setPanels, closePanel, updateSize } = usePanelStore();
+  const panels = usePanelStore((state) => state.panels);
+  const setPanels = usePanelStore((state) => state.setPanels);
+  const closePanel = usePanelStore((state) => state.closePanel);
+  const updateSize = usePanelStore((state) => state.updateSize);
   const [activeId, setActiveId] = useState<any | null>(null);
   
   const [isReady, setIsReady] = useState(false);
@@ -188,7 +191,6 @@ export const ResizableLayout = () => {
           sx={{ 
             flexGrow: 1, 
             p: 0,
-            width: '100%',      // 親の幅を固定
             overflowX: 'auto',  // 横スクロールを許可
             display: 'flex',    // 子要素を横並びに維持
             '&::-webkit-scrollbar': { height: '8px' }, // スクロールバーを見えやすくする場合

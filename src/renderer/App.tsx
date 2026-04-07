@@ -4,6 +4,8 @@ import { Footer } from './components/Footer';
 import { MainWorkspace } from './components/MainWorkspace';
 import { useCameraStore } from './store/useCameraListStore';
 import { useEffect } from 'react';
+import { useServiceStore } from './store/useServiceStore';
+import { StreamManager } from './components/StreamManager';
 
 // 1. ダークモード用のテーマ設定
 const darkTheme = createTheme({
@@ -32,15 +34,18 @@ export const VIDEO_MINWIDTH = 350
 export const BUTTON_HEIGHT = 24; 
 
 export default function App() {
-  const { getDevices } = useCameraStore();
+  const getDevices = useCameraStore((state) => state.getDevices);
+  const startUpService = useServiceStore((state) => state.startUpService);
 
   useEffect(() => {
+    startUpService()
     getDevices()
   },[])
 
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline /> {/* デフォルトのCSSをリセット */}
+      {/* <StreamManager/> */}
       <Box sx={{ 
         height: '100%', 
         width: '100%', 

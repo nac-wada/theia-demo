@@ -2,8 +2,11 @@ import { Transport } from "@connectrpc/connect";
 import { Box, Button, InputAdornment, Slider, TextField, Typography } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { BUTTON_HEIGHT } from "../../../renderer/App";
+import { useSoloSubscribeEventStore } from "../../../renderer/store/useSubscribeEventStore";
+import { EventType } from "../../../gen/solo/v1/solo_pb";
 
 export const ParameterForm = (props: {
+  ipv4Addr: string;
   transport?: Transport;
   input?: boolean;
   autoMode?: {
@@ -14,7 +17,13 @@ export const ParameterForm = (props: {
   title: string;
   apiSetParameter?: (value: number) => Promise<void>;
 }) => {
-  const { defMode = true } = props;
+  const { defMode = true, ipv4Addr } = props;
+  const latest = useSoloSubscribeEventStore((state) => {
+    const events = state.serverEvents[ipv4Addr]?.[EventType.IMAGE_EXPOSURE_CHANGED];
+    if (!events || events.length === 0) return null;
+    return events[events.length - 1]; // 最新の1件
+  });
+
   const [value, setValue] = useState(0);
   const busy = useRef(false);
   const lastSentValue = useRef(value);
@@ -86,7 +95,7 @@ export const ParameterForm = (props: {
       }}>
         
         {/* スライダーエリア：ここが伸縮してタイトルとの隙間を埋める */}
-        <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center", minWidth: 45, maxWidth: 300 }}>
+        <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
           {props.input && (
             <Slider
               value={value}
@@ -95,6 +104,7 @@ export const ParameterForm = (props: {
               onChange={handleSliderChange}
               size="small"
               sx={{
+                minWidth: 45, maxWidth: 300,
                 mr: 1,
                 color: "info.main",
                 '& .MuiSlider-rail': {

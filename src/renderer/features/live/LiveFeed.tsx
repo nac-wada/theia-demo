@@ -4,11 +4,12 @@ import { FOOTER_HEIGHT, HEADER_HEIGHT, LIVE_MINWIDTH, TABHEADER_HEIGHT } from ".
 import { Live } from "./Live";
 import { closestCenter, DndContext, DragEndEvent, DragStartEvent, KeyboardSensor, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { arrayMove, horizontalListSortingStrategy, SortableContext, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
-import { useState } from "react";
 
 export const LiveFeed = () => {
-  const { error, isLoading, cameraList, updateCameraList } = useCameraStore();
-  // const [activeId, setActiveId] = useState(null);
+  const error = useCameraStore((state) => state.error);
+  const isLoading = useCameraStore((state) => state.isLoading);
+  const cameraList = useCameraStore((state) => state.cameraList);
+  const updateCameraList = useCameraStore((state) => state.updateCameraList);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),

@@ -1,27 +1,18 @@
 import { Box, Typography } from "@mui/material"
+import { useEffect } from "react";
+import { useFileStore } from "../../../renderer/store/useFileListStore"
 
 export const FileList = () => {
-  const list = [
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-  ]
+  const error = useFileStore((state) => state.error);
+  const isLoading = useFileStore((state) => state.isLoading);
+  const files = useFileStore((state) => state.files);
+  const fetchFiles = useFileStore((state) => state.fetchFiles);
+
+  useEffect(() => {
+    if(files.length===0) {
+      fetchFiles();
+    }
+  }, []);
 
   return (
     <Box 
@@ -51,7 +42,10 @@ export const FileList = () => {
           }} 
         >
           {
-            list.map((l, i) => (
+            error && <Typography variant="caption" color="error" sx={{ fontWeight: "bold" }}>{error}</Typography>
+          }
+          {
+            files.length ? files.map((l, i) => (
               <Box 
                 key={i}
                 sx={{ 
@@ -64,10 +58,11 @@ export const FileList = () => {
                   width: "100%",
                 }}
               >
-                file{i}
+                file{l.id}
               </Box>
-            ))
-          }
+            )):(
+            !isLoading && <Typography variant="caption">no record</Typography>
+          )}
         </Box>
       </Box>
     </Box>

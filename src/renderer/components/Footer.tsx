@@ -4,7 +4,8 @@ import { useCameraStore } from '../store/useCameraListStore';
 
 
 export const Footer = () => {
-  const { error, getDevices } = useCameraStore()
+  const error = useCameraStore((state) => state.error)
+  const getDevices = useCameraStore((state) => state.getDevices)
   
   return (
     <Box 

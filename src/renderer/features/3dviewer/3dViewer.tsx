@@ -178,7 +178,6 @@ export const Viewer: React.FC = () => {
         overflow: 'hidden',
         border: 'divider',
         height: '100%',
-        width: '100%'
       }}
     >
       <Canvas

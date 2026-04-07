@@ -1,8 +1,7 @@
 import { Box, IconButton } from '@mui/material';
-import { Analytics, AnalyticsOutlined, AnalyticsSharp, Camera, FolderOpen, FolderOpenSharp, HelpOutline, Settings, Title, TuneSharp, VideocamOffOutlined, VideocamOutlined, VideoLibraryOutlined, ViewInArOutlined } from '@mui/icons-material';
+import { HelpOutline, Settings, TuneSharp, VideocamOutlined, VideoLibraryOutlined, ViewInArOutlined } from '@mui/icons-material';
 import { usePanelStore } from '../store/usePanelStore';
 import { usePanelStatus } from '../hooks/usePanelStatus';
-import { useCameraStore } from '../store/useCameraListStore';
 
 const NavButton = (props: { id: string, icon: React.ReactNode }) => {
   const openPanel = usePanelStore((state) => state.openPanel);
