@@ -9,22 +9,22 @@ import { useCameraStore } from "../../../renderer/store/useCameraListStore"
 
 export const Record = () => {
 
-  const isRecording = useRecordStore((state) => state.isRecording);
-  const startRecording = useRecordStore((state) => state.startRecording);
-  const expectedIps = useCameraStore((state) => state.cameraList.map(c => c.ipv4Addr));
+  // const isRecording = useRecordStore((state) => state.isRecording);
+  // const startRecording = useRecordStore((state) => state.startRecording);
+  // const expectedIps = useCameraStore((state) => state.cameraList.map(c => c.ipv4Addr));
 
-  // 2. すべてのサーバーで対象イベントが1件以上あるかを判定
-  const isAllReceived = useSoloSubscribeEventStore((state) => {
-    if (expectedIps.length === 0) return false;
+  // // 2. すべてのサーバーで対象イベントが1件以上あるかを判定
+  // const isAllReceived = useSoloSubscribeEventStore((state) => {
+  //   if (expectedIps.length === 0) return false;
 
-    // すべての期待されるIPに対してチェック
-    return expectedIps.every(ip => {
-      const history = state.serverEvents[ip]?.[EventType.RECORD_CREATED];
-      return history && history.length > 0;
-    });
-  });
+  //   // すべての期待されるIPに対してチェック
+  //   return expectedIps.every(ip => {
+  //     const history = state.serverEvents[ip]?.[EventType.RECORD_CREATED];
+  //     return history && history.length > 0;
+  //   });
+  // });
 
-  console.log(isAllReceived)
+  // console.log(isAllReceived)
 
   return (
     <CustomAccordion title="record" >
@@ -105,7 +105,7 @@ export const Record = () => {
         <Box sx={{ display: "flex", flexDirection: "row", alignItems:"center", justifyContent:"end", gap: 1 }}>
           <Box sx={{ width: 55 }}>
             <Button
-              disabled={isRecording}
+              // disabled={isRecording}
               startIcon={<RadioButtonCheckedRounded fontSize="small" sx={{ color: "red" }}/>}
               size="small"
               variant={"outlined"}
@@ -126,7 +126,7 @@ export const Record = () => {
                   marginLeft: '0px',   // 左側の余白も気になるなら調整
                 }
               }}
-              onClick={() => startRecording()}
+              // onClick={() => startRecording()}
             >
               REC
             </Button>
